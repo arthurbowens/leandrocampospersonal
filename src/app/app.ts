@@ -12,9 +12,9 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { Icon } from './icon';
 import { Logo } from './logo';
+import { Assistant } from './assistant';
+import { WHATSAPP_NUMBER } from './config';
 
-/** TODO: troque pelo WhatsApp do Leandro (somente números, com 55 + DDD). */
-const WHATSAPP_NUMBER = '5500000000000';
 const INSTAGRAM_URL = '';
 
 interface Plan {
@@ -28,7 +28,7 @@ interface Plan {
 
 @Component({
   selector: 'app-root',
-  imports: [Icon, Logo],
+  imports: [Icon, Logo, Assistant],
   templateUrl: './app.html',
   styleUrl: './app.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,6 +44,7 @@ export class App {
   protected readonly scrolled = signal(false);
   protected readonly slide = signal(0);
 
+  private readonly assistant = viewChild(Assistant);
   private readonly track = viewChild<ElementRef<HTMLElement>>('track');
   private autoplay?: ReturnType<typeof setInterval>;
   private paused = false;
@@ -220,6 +221,11 @@ export class App {
 
   protected waPlan(plan: Plan): string {
     return this.wa(`Olá Leandro! Tenho interesse no plano ${plan.name} da consultoria online.`);
+  }
+
+  protected openAssistant(): void {
+    this.closeMenu();
+    this.assistant()?.openAssistant();
   }
 
   protected toggleMenu(): void {

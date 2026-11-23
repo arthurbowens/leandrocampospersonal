@@ -57,15 +57,7 @@ const WHATSAPP =
   selector: 'app-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { 'aria-hidden': 'true', class: 'ico' },
-  template: `<svg
-    [attr.viewBox]="filled() ? '0 0 24 24' : '0 0 24 24'"
-    [attr.fill]="filled() ? 'currentColor' : 'none'"
-    [attr.stroke]="filled() ? 'none' : 'currentColor'"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    [innerHTML]="svg()"
-  ></svg>`,
+  template: `<span class="i" [innerHTML]="svg()"></span>`,
   styles: `
     :host {
       display: inline-flex;
@@ -73,7 +65,9 @@ const WHATSAPP =
       height: 1em;
       flex: none;
     }
-    svg {
+    .i,
+    .i ::ng-deep svg {
+      display: block;
       width: 100%;
       height: 100%;
     }
@@ -83,11 +77,13 @@ export class Icon {
   readonly name = input.required<string>();
   private readonly sanitizer = inject(DomSanitizer);
 
-  protected readonly filled = computed(() => this.name() === 'whatsapp');
-  protected readonly svg = computed(() =>
+  protected readonly svg = computed(() => {
+    const n = this.name();
+    const open =
+      n === 'whatsapp'
+        ? '<svg viewBox="0 0 24 24" fill="currentColor">'
+        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">';
     // Static, developer-authored markup only (never user input).
-    this.sanitizer.bypassSecurityTrustHtml(
-      this.name() === 'whatsapp' ? WHATSAPP : (ICONS[this.name()] ?? ''),
-    ),
-  );
+    return this.sanitizer.bypassSecurityTrustHtml(`${open}${n === 'whatsapp' ? WHATSAPP : (ICONS[n] ?? '')}</svg>`);
+  });
 }

@@ -81,10 +81,10 @@
       <figure class="hero-photo">
         <div class="frame">
           <img
-            src="img/leandro-1.png"
+            src="img/leandro-2.jpg"
             alt="Leandro Campos, personal trainer"
-            width="234"
-            height="265"
+            width="738"
+            height="736"
             fetchpriority="high"
           />
         </div>
@@ -100,7 +100,7 @@
   <section class="section" id="sobre">
     <div class="container about">
       <div class="about-photo reveal">
-        <img src="img/leandro-2.png" alt="Leandro Campos treinando" width="233" height="237" loading="lazy" />
+        <img src="img/leandro-3.jpg" alt="Leandro Campos treinando" width="738" height="814" loading="lazy" />
         <span class="stripe" aria-hidden="true"></span>
       </div>
       <div class="about-copy reveal">
@@ -109,9 +109,8 @@
         <p>
           Tudo o que você precisa para elevar seu físico ao próximo nível está aqui. Sou
           <strong>Leandro Silva Campos</strong>, personal trainer presencial e de consultoria online,
-          especialista em <strong>hipertrofia</strong>, <strong>emagrecimento</strong> e
-          <strong>glúteos</strong>, com foco em treinamento feminino e masculino e pós-graduação em
-          <strong>biomecânica na musculação</strong> e treinamento para mulheres.
+          especialista em <strong>glúteos</strong> e <strong>treinamento feminino</strong>, com
+          pós-graduação em <strong>biomecânica na musculação</strong> e treinamento para mulheres.
         </p>
         <p>
           Meu método une planejamento individual, execução correta e acompanhamento próximo, para que
@@ -141,7 +140,7 @@
 
       <div class="cards">
         @for (item of included; track item.title; let i = $index) {
-          <article class="card reveal" [style.transition-delay.ms]="(i % 3) * 80">
+          <article class="card reveal">
             <span class="card-icon"><app-icon [name]="item.icon" /></span>
             <h3>{{ item.title }}</h3>
             <p>{{ item.text }}</p>
@@ -151,7 +150,7 @@
 
       <ol class="steps">
         @for (s of steps; track s.title; let i = $index) {
-          <li class="step reveal" [style.transition-delay.ms]="i * 90">
+          <li class="step reveal">
             <span class="step-n">{{ i + 1 }}</span>
             <app-icon [name]="s.icon" />
             <h3>{{ s.title }}</h3>
@@ -217,7 +216,7 @@
 
       <div class="plans">
         @for (p of plans; track p.name; let i = $index) {
-          <article class="plan reveal" [class.highlight]="p.highlight" [style.transition-delay.ms]="i * 80">
+          <article class="plan reveal" [class.highlight]="p.highlight">
             @if (p.badge) {
               <span class="badge">{{ p.badge }}</span>
             }
@@ -310,7 +309,5 @@
   <p class="copy">© {{ year }} Leandro Silva Campos — Personal Trainer. Todos os direitos reservados.</p>
 </footer>
 
-<!-- Floating WhatsApp -->
-<a class="fab" [href]="wa()" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
-  <app-icon name="whatsapp" />
-</a>
+<!-- Assistente (chat de anamnese) -->
+<app-assistant />

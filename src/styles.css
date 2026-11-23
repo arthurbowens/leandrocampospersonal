@@ -36,3 +36,6 @@ html.js .reveal.in {
     transition: none;
   }
 }
+
+html.js .reveal:nth-child(3n + 2) { transition-delay: 80ms; }
+html.js .reveal:nth-child(3n) { transition-delay: 160ms; }
